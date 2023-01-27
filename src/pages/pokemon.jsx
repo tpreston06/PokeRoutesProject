@@ -1,5 +1,6 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import { Image, Badge, Container } from "react-bootstrap";
 
 export default function Pokemon(){
     const pokemonData = useLoaderData();
@@ -7,15 +8,20 @@ export default function Pokemon(){
     console.log(pokemonData);
 
     return (
-        <div>
+        <Container>
+            <Link to={`/`}><Button>Home</Button></Link>
             <p>Name: {pokemonData.name}</p>
             <p>Weight: {pokemonData.weight}lbs</p>
             <ul>Abilities: {pokemonData.abilities.map((ability) => (
                 <li>{ability.ability.name}</li>
             )
             )}</ul>
-            <p>Sprites: <img src={pokemonData.sprites.front_default} /></p>
-            <Button>Button</Button>
-        </div>
+            {pokemonData.types.map((pokemonType) => (
+                <Badge>{pokemonType.type.name}</Badge>
+            ) )}
+            <p>Sprites: <Image src={pokemonData.sprites.front_default} /></p>
+            <Link to={`/pokemon/${pokemonData.id-1}`}><Button>Previous</Button></Link>
+            <Link to={`/pokemon/${pokemonData.id+1}`}><Button>Next Pokemon</Button></Link>
+        </Container>
     )
 }

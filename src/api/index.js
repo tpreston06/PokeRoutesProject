@@ -27,3 +27,16 @@ export const getSpecificPokemon = async (name) => {
         return "Failed to fetch a pokemon"
     }
 }
+
+export const getPokemonByID = async (id) => {
+    try{
+        const apiResponse = await axios.get(`${API_URL}/pokemon/${id}`);
+        
+        const data = apiResponse.data;
+
+        return data;
+    } catch(e){
+        console.log(e);
+        return "Failed to fetch a pokemon"
+    }
+}
